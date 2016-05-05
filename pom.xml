@@ -1,0 +1,104 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>iantong.net</groupId>
+	<artifactId>JSocksProxyFork</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>JSocksProxyFork</name>
+	<description>socks代理服务</description>
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.11</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.alexkasko.installer</groupId>
+			<artifactId>windows-service-installer-common</artifactId>
+			<version>1.0.6</version>
+		</dependency>
+
+
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.7.7</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-api</artifactId>
+			<version>2.5</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-core</artifactId>
+			<version>2.5</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-slf4j-impl</artifactId>
+			<version>2.5</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-1.2-api</artifactId>
+			<version>2.5</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-jcl</artifactId>
+			<version>2.5</version>
+		</dependency>
+
+	</dependencies>
+	<build>
+		<resources>
+			<resource>
+				<directory>src/main/java</directory>
+				<excludes>
+					<exclude>**/*.java</exclude>
+				</excludes>
+			</resource>
+		</resources>
+		<plugins>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>2.4</version>
+				<configuration>
+					<archive>
+						<manifest>
+							<mainClass>iantong.net.jsocksproxy.SocksProxyService</mainClass>
+						</manifest>
+					</archive>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<!-- to be run with "mvn windows-service-installer:installer" -->
+				<groupId>com.alexkasko.installer</groupId>
+				<artifactId>maven-windows-service-installer-plugin</artifactId>
+				<version>1.0.6</version>
+				<dependencies>
+					<dependency>
+						<groupId>com.alexkasko.installer</groupId>
+						<artifactId>windows-service-installer-common</artifactId>
+						<version>1.0.6</version>
+					</dependency>
+				</dependencies>
+				<configuration>
+					<appDataDirs>
+						<appDataDir>src/main/resources</appDataDir>
+					</appDataDirs>
+					<izpackLang>chn</izpackLang>
+					<use64BitJre>true</use64BitJre>
+					<prunsrvDaemonLauncherClass>iantong.net.jsocksproxy.SocksProxyService</prunsrvDaemonLauncherClass>
+				</configuration>
+			</plugin>
+
+		</plugins>
+	</build>
+</project>

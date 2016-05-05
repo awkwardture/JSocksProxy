@@ -402,7 +402,7 @@ public class JSocksProxy implements JSocksProxyMBean, ConfigurationFacade,
 		}
 
 		if (basePath == null) {
-			file = new File(JSocksProxy.CONFIGURATION_XML);
+			file = new File("resources/"+JSocksProxy.CONFIGURATION_XML);
 		} else {
 
 			final File basePathFile = new File(basePath);
